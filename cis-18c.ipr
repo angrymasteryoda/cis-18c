@@ -157,6 +157,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/bag/bag.iml" filepath="$PROJECT_DIR$/bag/bag.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bagSorting/bagSorting.iml" filepath="$PROJECT_DIR$/bagSorting/bagSorting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
