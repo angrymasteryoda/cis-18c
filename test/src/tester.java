@@ -1,4 +1,5 @@
 import com.michael.api.IO.IO;
+import com.michael.api.Sorting;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -11,9 +12,47 @@ public class tester<T extends Comparable< ? super T > > {
 //		Float a = 123.9f;
 //		Float b = 85.2f;
 //		IO.println( a.compareTo( b ));
-		int a[] = { 8,5,7,6,3,1,2 };
-		mergeSort( a );
+		int a[] = { 3,1,4,1,5,9,2,6,5,3 };
+		quickSort( a );
 		IO.arrayPrinter( a );
+	}
+
+	public static void quickSort( int[] a ){
+		quickSort( a, 0, a.length - 1 );
+	}
+
+	public static void quickSort( int[] a, int left, int right ) {
+		int leftI = left; // left scan index
+		int rightI = right; //right scan index
+
+		int pivot = a[( left + ( right - left ) / 2 )]; //use the middle as the pivot
+		while ( leftI < rightI ) { //if we havent scanned the left side all the way through yet
+			while ( a[leftI] < pivot ) { //scan left side looking for index where larger than pivot
+				leftI++;
+			}
+
+			while ( a[rightI] > pivot ) { //scan right side looking for index where smaller than pivot
+				rightI--;
+			}
+
+			if ( leftI <= rightI ) { //if the left index is smaller than we need to swap
+				swap( a, leftI, rightI );
+				leftI++;
+				rightI--;
+			}
+		}
+		if ( left < rightI ) {
+			quickSort( a, left, rightI );
+		}
+		if ( leftI < right ) {
+			quickSort( a, leftI, right );
+		}
+	}
+
+	private static void swap( int a[], int i, int j ){
+		int temp = a[i];
+		a[i] = a[j];
+		a[j] = temp;
 	}
 
 	//starts the merger sort

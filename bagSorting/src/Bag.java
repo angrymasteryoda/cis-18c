@@ -1,4 +1,5 @@
 import java.lang.reflect.Array;
+import java.util.Random;
 
 /**
  * Created by michael on 2/28/2016.
@@ -36,6 +37,12 @@ public class Bag<T extends Comparable< ? super T > > implements BagInterface<T> 
 		}
 		bagItems[numItems++] = item;
 		return true;
+	}
+
+	public void addX( T...items) {
+		for( T x : items ){
+			add( x );
+		}
 	}
 
 	@SuppressWarnings( "unchecked" )
@@ -116,11 +123,11 @@ public class Bag<T extends Comparable< ? super T > > implements BagInterface<T> 
 
 				if ( isAscending ) {
 					//find smallest
-					if ( bagItems[sIndex].compareTo( bagItems[j] ) > 0 ) {
+					if (compare(  bagItems[sIndex], bagItems[j] ) > 0 ) {
 						sIndex = j;
 					}
 				} else {
-					if ( bagItems[sIndex].compareTo( bagItems[j] ) < 0 ) {
+					if ( compare( bagItems[sIndex], bagItems[j] ) < 0 ) {
 						sIndex = j;
 					}
 				}
@@ -132,6 +139,10 @@ public class Bag<T extends Comparable< ? super T > > implements BagInterface<T> 
 		}
 	}
 
+	/**
+	 * Sorts the bag using the mergesort algorithm
+	 * @param isAscending sort by ascending order
+	 */
 	public void mergeSort( boolean isAscending ){
 		T temp[] = (T[]) new Comparable[ numItems ]; //make the temp array we can play wtih
 		mergeSort( bagItems, temp, 0, numItems - 1, isAscending );
@@ -155,7 +166,7 @@ public class Bag<T extends Comparable< ? super T > > implements BagInterface<T> 
 
 		while( ( leftBegin <= leftEnd ) && ( rightBegin <= rightEnd ) ){ //have we finished reading the half array
 			if ( isAscending ) {
-				if ( a[leftBegin].compareTo( a[rightBegin] ) <= 0 ) {
+				if ( compare( a[leftBegin], a[rightBegin] ) <= 0 ) {
 					temp[i] = a[leftBegin];
 					leftBegin++;
 				} else{
@@ -163,7 +174,7 @@ public class Bag<T extends Comparable< ? super T > > implements BagInterface<T> 
 					rightBegin++;
 				}
 			} else {
-				if ( a[leftBegin].compareTo( a[rightBegin] ) >= 0 ) {
+				if ( compare( a[leftBegin], a[rightBegin] ) >= 0 ) {
 					temp[i] = a[leftBegin];
 					leftBegin++;
 				} else{
@@ -190,9 +201,58 @@ public class Bag<T extends Comparable< ? super T > > implements BagInterface<T> 
 		for ( int j = left; j <= rightEnd; j++ ) {
 			a[j] = temp[ j - left];
 		}
-
 	}
 
+	public void quickSort( boolean isAscending ){
+		quickSort( bagItems, 0, numItems - 1, isAscending );
+	}
+
+	private void quickSort( T[] a, int left, int right, boolean isAscending ){
+		int leftI = left; // left scan index
+		int rightI = right; //right scan index
+		Random rand = new Random( );
+		T pivot = a[rand.nextInt(right)]; //using the a random point as the pivot
+		while ( leftI < rightI ) { //if we havent scanned the left side all the way through yet
+			if( isAscending ){
+				while ( compare( a[leftI], pivot ) < 0 ) { //scan left side looking for index where larger than pivot
+					leftI++;
+				}
+
+				while ( compare( a[rightI], pivot ) > 0 ) { //scan right side looking for index where smaller than pivot
+					rightI--;
+				}
+			} else {
+				while ( compare( a[leftI], pivot ) > 0 ) { //scan left side looking for index where larger than pivot
+					leftI++;
+				}
+
+				while ( compare( a[rightI], pivot ) < 0 ) { //scan right side looking for index where smaller than pivot
+					rightI--;
+				}
+			}
+
+
+			if ( leftI <= rightI ) { //if the left index is smaller than we need to swap
+				swap( a, leftI, rightI );
+				leftI++;
+				rightI--;
+			}
+		}
+		if ( left < rightI ) {
+			quickSort( a, left, rightI, isAscending );
+		}
+		if ( leftI < right ) {
+			quickSort( a, leftI, right, isAscending );
+		}
+	}
+
+	private int compare( T a, T b ){
+		if ( a instanceof String ) {
+			return ( (String) a ).compareToIgnoreCase( (String) b );
+		} else{
+			return a.compareTo( b );
+		}
+	}
 
 	private void swap( T[] array, int i, int j ){
 		T temp = array[j];

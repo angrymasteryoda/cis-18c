@@ -158,6 +158,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/bag/bag.iml" filepath="$PROJECT_DIR$/bag/bag.iml" />
       <module fileurl="file://$PROJECT_DIR$/bagSorting/bagSorting.iml" filepath="$PROJECT_DIR$/bagSorting/bagSorting.iml" />
+      <module fileurl="file://$PROJECT_DIR$/linkList/linkList.iml" filepath="$PROJECT_DIR$/linkList/linkList.iml" />
       <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" />
     </modules>
   </component>
