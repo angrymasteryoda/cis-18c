@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7f154467-9478-44a8-8ca6-9bfec9a00831" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/stack/src/Stack.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/stack/src/StackDemo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/stack/stack.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cis-18c.ipr" afterPath="$PROJECT_DIR$/cis-18c.ipr" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cis-18c.iws" afterPath="$PROJECT_DIR$/cis-18c.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stack/src/StackDemo.java" afterPath="$PROJECT_DIR$/stack/src/StackDemo.java" />
     </list>
     <ignored path="cis-18c.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,60 +24,20 @@
     <favorites_list name="cis-18c" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.35882354">
-      <split-first>
-        <leaf>
-          <file leaf-file-name="StackDemo.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/stack/src/StackDemo.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="1.19349">
-                  <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="Stack.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/stack/src/Stack.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="1.7359855">
-                  <caret line="52" column="19" selection-start-line="52" selection-start-column="19" selection-end-line="52" selection-end-column="19" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Bag.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/bagSorting/src/Bag.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="236" column="24" selection-start-line="236" selection-start-column="24" selection-end-line="236" selection-end-column="24" />
-                  <folding>
-                    <element signature="imports" expanded="false" />
-                    <element signature="e#484#485#0" expanded="false" />
-                    <element signature="e#506#507#0" expanded="false" />
-                    <element signature="e#546#547#0" expanded="false" />
-                    <element signature="e#573#574#0" expanded="false" />
-                    <element signature="e#1490#1491#0" expanded="false" />
-                    <element signature="e#1525#1526#0" expanded="false" />
-                    <element signature="e#1856#1857#0" expanded="false" />
-                    <element signature="e#1875#1876#0" expanded="false" />
-                    <element signature="e#4642#4643#0" expanded="false" />
-                    <element signature="e#4700#4701#0" expanded="false" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf>
+      <file leaf-file-name="StackDemo.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/stack/src/StackDemo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="1.1898735">
+              <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -645,16 +601,16 @@
       <workItem from="1459907143574" duration="314000" />
       <workItem from="1459907631680" duration="2748000" />
       <workItem from="1461188841951" duration="1757000" />
-      <workItem from="1461190662079" duration="596000" />
+      <workItem from="1461190662079" duration="968000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="67834000" />
+    <option name="totallyTimeSpent" value="68206000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -667,7 +623,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33524683" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12727273" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12727273" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3272101" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15128756" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1067,26 +1023,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bagSorting/src/Bag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="236" column="24" selection-start-line="236" selection-start-column="24" selection-end-line="236" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#484#485#0" expanded="false" />
-            <element signature="e#506#507#0" expanded="false" />
-            <element signature="e#546#547#0" expanded="false" />
-            <element signature="e#573#574#0" expanded="false" />
-            <element signature="e#1490#1491#0" expanded="false" />
-            <element signature="e#1525#1526#0" expanded="false" />
-            <element signature="e#1856#1857#0" expanded="false" />
-            <element signature="e#1875#1876#0" expanded="false" />
-            <element signature="e#4642#4643#0" expanded="false" />
-            <element signature="e#4700#4701#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stack/src/Stack.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.7359855">
@@ -1103,10 +1039,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bagSorting/src/Bag.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="236" column="24" selection-start-line="236" selection-start-column="24" selection-end-line="236" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/stack/src/StackDemo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.19349">
-          <caret line="33" column="29" selection-start-line="33" selection-start-column="29" selection-end-line="33" selection-end-column="29" />
+        <state vertical-scroll-proportion="1.1898735">
+          <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

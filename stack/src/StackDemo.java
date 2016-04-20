@@ -23,11 +23,17 @@ public class StackDemo {
 			fStack.push( i );
 		}
 		fStack.display();
+		IO.println( "pop off an element" );
+		IO.println( "popped off: " + fStack.pop() );
+		fStack.display();
 		IO.println( "\nString stack" );
 		Stack<String> sStack = new Stack(  );
 		for( int i = 0; i < 21; i++ ){
 			sStack.push( Random.randomAlphaNumeric( 4 ) );
 		}
+		sStack.display();
+		IO.println( "pop off an element" );
+		IO.println( "popped off: " + sStack.pop() );
 		sStack.display();
 		IO.println( "\nJSON stack" );
 		Stack<JSONObject> JsonStack = new Stack(  );
@@ -38,6 +44,9 @@ public class StackDemo {
 			o.put( "index", i );
 			JsonStack.push( o );
 		}
+		JsonStack.display();
+		IO.println( "pop off an element" );
+		IO.println( "popped off: " + JsonStack.pop() );
 		JsonStack.display();
 	}
 }
