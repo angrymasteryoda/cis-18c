@@ -210,8 +210,8 @@ public class Bag<T extends Comparable< ? super T > > implements BagInterface<T> 
 	private void quickSort( T[] a, int left, int right, boolean isAscending ){
 		int leftI = left; // left scan index
 		int rightI = right; //right scan index
-		Random rand = new Random( );
-		T pivot = a[rand.nextInt(right)]; //using the a random point as the pivot
+//		Random rand = new Random( );
+		T pivot = a[left]; //using the leftmost as the pivot
 		while ( leftI < rightI ) { //if we havent scanned the left side all the way through yet
 			if( isAscending ){
 				while ( compare( a[leftI], pivot ) < 0 ) { //scan left side looking for index where larger than pivot
