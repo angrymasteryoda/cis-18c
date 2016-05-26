@@ -9,16 +9,18 @@ import com.michael.api.math.EquationSolver;
 public class FinalMain {
 	public static void main( String[] args ) {
 //		IO.println( EquationSolver.solveEquation( "3 * (4 + 5)" ) );
-//		convertToPostFix( "ab");
 //		convertToPostFix( "3 * ( 4 + 5 )");
 //		convertToPostFix( "2 * ( ( 3 + 5 ) * ( 3 + 2 ) )");
 //		convertToPostFix( "6 * (3+(7*8)*(5+2))");
+//		convertToPostFix( "(7 + 1) * 9 / 5" );
+//		convertToPostFix( "(34 + 12) * 5 / 23" );
 //		convertToPostFix( "-2*(-3+-5)" );
 //		convertToPostFix( "/2" );
 //		convertToPostFix( "(2+8" );
 //		convertToPostFix( "(2+/8)" );
 //		convertToPostFix( "(2!+8)" );
-		convertToPostFix( "(5 + 3) * 12 / 3" );
+//		convertToPostFix( "2^4 + 2" );
+		convertToPostFix( "5.4 + 5.5" );
 	}
 
 	public static void convertToPostFix( String equation ) {
@@ -32,67 +34,99 @@ public class FinalMain {
 
 		Tokenizer token = new Tokenizer( equation ); //create token
 		StringBuilder postfix = new StringBuilder();
-		Stack<Character> operations = new Stack<>();
-		CharPattern nums = new CharPattern( "[0-9]" );
-		CharPattern ops = new CharPattern( "[\\+\\-\\*\\/\\^\\!\\(\\)]" );
+		Stack<Character> ops = new Stack<>();
+		CharPattern nums = new CharPattern( "[0-9\\.]" );//DONE allow decimals
+
 
 		for ( int i = 0; i < equation.length(); i++ ) {
-			boolean skip = false;
-			//IO.println( token.get() );
-			if ( nums.matches( token.get() ) ) { //if matches a number add to the string
+			if ( isOperator( token.get() ) ) {
+				if ( ops.size() == 0 ) { //if empty stack just add it
+					if( token.get() == '-' ){
+						if( token.behind() == 0 ) {//it is the first char so its negative
+							postfix.append( token.get() );
+							token.next();
+							continue;
+						} else if ( isOperator( token.behind() ) ) {
+							postfix.append( token.get() );
+							token.next();
+							continue;
+						}
+					} else if ( token.get() == '!' ) { //if there is a factorial put it in now
+						postfix.append( token.get() ).append( " " );
+						token.next();
+						continue;
+					} else
+						ops.push( token.get() );
+				} else if ( token.get() == ')' ) { //if we are closing the parenthesise
+					//pop off whatever is there until we hit the open parenthesise
+					while ( ops.size() > 0 && ops.peek() != '(' ) {
+						postfix.append( ops.pop() ).append( " " );
+					}
+					//remove the opening paren
+					ops.pop();
+				} else {
+					if( token.get() == '-' ){
+						if( token.behind() == 0 ) {//it is the first char so its negative
+							postfix.append( token.get() );
+							token.next();
+							continue;
+						} else if ( isOperator( token.behind() ) ) {
+							postfix.append( token.get() );
+							token.next();
+							continue;
+						}
+					}
+					if ( token.get() == '!' ) { //if there is a factorial put it in now
+						postfix.append( token.get() ).append( " " );
+						token.next();
+						continue;
+					}
+
+					if ( ( token.get() == '(' && ops.peek().equals( '(' ) ) ||
+							( pemdas( ops.peek() ) >= pemdas( token.get() ) ) ) { //if not an open paren and the stack is of higher or equal order pop into final
+						while ( ops.size() > 0 && !ops.peek().equals( '(' ) && pemdas( ops.peek() ) >= pemdas( token.get() ) ) {
+							postfix.append( ops.pop() ).append( " " );
+						}
+						ops.push( token.get() );
+					} else {
+						ops.push( token.get() );
+					}
+				}
+			} else if ( nums.matches( token.get() ) ) {
+				//DONE look for whole numbers, decimals, negatives
 				if ( nums.matches( token.forward() ) || token.forward() == '!' ) {
 					//if the next char is a number or factorial put it in without space
 					postfix.append( token.get() );
 				} else {
-					postfix.append( token.get() + " " );
-				}
-			} else if ( ops.matches( token.get() ) ) { //if its an operation add to op stack
-				//check if its a subtraction or negative
-				if ( token.get() == '-' ) {
-					//check if the one before even exists
-					if ( token.behind() == 0 ) {
-						skip = true;
-						postfix.append( token.get() );
-					} else if ( ops.matches( token.behind() ) ) {
-						//if there is an op beforehand it is a negative +-4
-						skip = true;
-						postfix.append( token.get() );
-					}
-				}
-				//check if a close parenthesise
-				if ( token.get() == ')' ) {
-					//pop off an operation to the string
-					postfix.append( operations.pop() + " " );
-					if ( operations.peek().equals( '(' ) ) { //if its a opening parenthesise pop it off
-						skip = true;
-						operations.pop();
-					}
-				}
-
-				if ( token.get() == '!' ) { //if there is a factorial put it in now
-					postfix.append( token.get() + " " );
-					skip = true;
-				}
-
-				if ( !skip ) {
-					operations.push( token.get() );
+					postfix.append( token.get() ).append( " " );
 				}
 			}
+
 			token.next();
 		}
-		if ( operations.size() != 0 ) {
-			//pop off the rest of the operations
-			while ( operations.size() != 0 ) {
-				if ( operations.peek().equals( ')' ) || operations.peek().equals( '(' ) ) {
-					operations.pop();
-				} else {
-					postfix.append( operations.pop() + " " );
-				}
-			}
-			//postfix.append( operations.pop() );
+
+		//pop whatever is left in the stack off be atleast 1
+		while( ops.size() > 0 ){
+			postfix.append( ops.pop() );
 		}
 
 		IO.println( postfix.toString() );
+	}
+
+	private static int pemdas( char op ) {
+		//factorial does not fall under this
+		//http://mathforum.org/library/drmath/view/57493.html
+		if ( op == '(' || op == ')' ) {
+			return 4;
+		} else if ( op == '^' ) {
+			return 3;
+		} else if ( op == '*' || op == '/' ) {
+			return 2;
+		} else if ( op == '-' || op == '+' ) {
+			return 1;
+		}
+		IO.printlnErr( op + " is not in pemdas" );
+		return -1; //should never happen but ya should check for it
 	}
 
 	public static boolean isSolvable( String equation ) {
@@ -103,7 +137,6 @@ public class FinalMain {
 		Tokenizer token = new Tokenizer( equation ); //create token
 		CharPattern ops = new CharPattern( "[\\+\\-\\*\\/\\^\\!\\(\\)]" );
 		CharPattern opsOnly = new CharPattern( "[\\+\\-\\*\\/\\^\\!]" );
-		int oprands = 0;
 		int parenthesise = 0;
 		for ( int i = 0; i < equation.length(); i++ ) {
 			if ( ops.matches( token.get() ) ) {
@@ -124,6 +157,10 @@ public class FinalMain {
 						if ( opsOnly.matches( token.forward() ) && token.forward() != '-' && token.get() != '!' ) {
 							error = true;
 						}
+
+//						if( token.get() == '/' ){ //check divide by 0. will allow for now but will change in the calculation
+//							error = true;
+//						}
 					}
 				}
 			}
@@ -135,4 +172,27 @@ public class FinalMain {
 		}
 		return !error;
 	}
+
+	/**
+	 * Test if it is an operator or not
+	 *
+	 * @param test         char to test
+	 * @param parenthesise if should allow parenthesise
+	 * @return true if it is an operator
+	 */
+	private static boolean isOperator( char test, boolean parenthesise ) {
+		CharPattern ops = ( ( parenthesise ) ? ( new CharPattern( "[\\+\\-\\*\\/\\^\\!\\(\\)]" ) ) : ( new CharPattern( "[\\+\\-\\*\\/\\^\\!]" ) ) );
+		return ops.matches( test );
+	}
+
+	/**
+	 * Test if it is an operator or not where parenthesise are allowed
+	 *
+	 * @param test char to test
+	 * @return true if it is an operator
+	 */
+	private static boolean isOperator( char test ) {
+		return isOperator( test, true );
+	}
+
 }
