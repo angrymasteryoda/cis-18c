@@ -1,55 +1,85 @@
 package michael.tk;
 
 import com.michael.api.IO.IO;
+import com.michael.api.math.ApiMath;
 import com.michael.api.math.EquationSolver;
+
+import java.util.Scanner;
 
 /**
  * Created by michael on 5/25/2016.
  */
 public class FinalMain {
 	public static void main( String[] args ) {
+		Scanner in = new Scanner( System.in );
+		IO.println( "Enter an equation: " );
+		String eq = in.nextLine();
+		String post = convertToPostFix( eq );
+		IO.println( post );
+		IO.println( evaluatePostFix( post ) );
+
 //		IO.println( EquationSolver.solveEquation( "3 * (4 + 5)" ) );
-//		convertToPostFix( "3 * ( 4 + 5 )");
-//		convertToPostFix( "2 * ( ( 3 + 5 ) * ( 3 + 2 ) )");
-//		convertToPostFix( "6 * (3+(7*8)*(5+2))");
-//		convertToPostFix( "(7 + 1) * 9 / 5" );
-//		convertToPostFix( "(34 + 12) * 5 / 23" );
-//		convertToPostFix( "-2*(-3+-5)" );
-//		convertToPostFix( "/2" );
-//		convertToPostFix( "(2+8" );
-//		convertToPostFix( "(2+/8)" );
-//		convertToPostFix( "(2!+8)" );
-//		convertToPostFix( "2^4 + 2" );
-		convertToPostFix( "5.4 + 5.5" );
+//		IO.println( convertToPostFix( "3 * ( 4 + 5 )") );
+//		IO.println( convertToPostFix( "2 * ( ( 3 + 5 ) * ( 3 + 2 ) )") );
+//		IO.println( convertToPostFix( "6 * (3+(7*8)*(5+2))") );
+//		IO.println( convertToPostFix( "(7 + 1) * 9 / 5" ) );
+//		IO.println( convertToPostFix( "(34 + 12) * 5 / 23" ) );
+//		IO.println( convertToPostFix( "-2*(-3+-5)" ) );
+//		IO.println( convertToPostFix( "/2" ) );
+//		IO.println( convertToPostFix( "(2+8" ) );
+//		IO.println( convertToPostFix( "(2+/8)" ) );
+//		IO.println( convertToPostFix( "(2!+8)" ) );
+//		IO.println( convertToPostFix( "2^4 + 2" ) );
+//		IO.println( convertToPostFix( "5.4 + 5.5" ) );
+//		IO.println( convertToPostFix( "20+3*(5-1)" ) );
+
+//		IO.println( evaluatePostFix( convertToPostFix( "3 * ( 4 + 5 )") ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "2 * ( ( 3 + 5 ) * ( 3 + 2 ) )") ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "6 * (3+(7*8)*(5+2))") ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "-2*(3+5)" ) ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "2!+2") ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "(7 + 1) * 9 / 5" ) ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "(34 + 12) * 5 / 23" ) ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "/2" ) ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "(2+8" ) ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "(2+/8)" ) ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "(2!+8)" ) ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "2^4 + 2" ) ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "5.4 + 5.5" ) ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "3*(6+4)(5-3)" ) ) );
+//		IO.println( evaluatePostFix( convertToPostFix( "2*(3+5)-9" ) ) );
+
 	}
 
-	public static void convertToPostFix( String equation ) {
-		if ( !isSolvable( equation ) ) {
-			IO.printlnErr( equation + " Is Not Solvable!" );
-			return;
+	public static String convertToPostFix( String infix ) {
+		if ( !isSolvable( infix ) ) {
+			IO.printlnErr( infix + " Is Not Solvable!" );
+			return "";
 		}
 
 		//remove all the spaces
-		equation = equation.replaceAll( " ", "" );
+		infix = infix.replaceAll( " ", "" );
 
-		Tokenizer token = new Tokenizer( equation ); //create token
+		Tokenizer token = new Tokenizer( infix ); //create token
 		StringBuilder postfix = new StringBuilder();
 		Stack<Character> ops = new Stack<>();
 		CharPattern nums = new CharPattern( "[0-9\\.]" );//DONE allow decimals
 
 
-		for ( int i = 0; i < equation.length(); i++ ) {
+		for ( int i = 0; i < infix.length(); i++ ) {
 			if ( isOperator( token.get() ) ) {
 				if ( ops.size() == 0 ) { //if empty stack just add it
-					if( token.get() == '-' ){
-						if( token.behind() == 0 ) {//it is the first char so its negative
+					if ( token.get() == '-' ) {
+						if ( token.behind() == 0 ) {//it is the first char so its negative
 							postfix.append( token.get() );
 							token.next();
 							continue;
-						} else if ( isOperator( token.behind() ) ) {
+						} else if ( isOperator( token.behind(), false ) ) {
 							postfix.append( token.get() );
 							token.next();
 							continue;
+						} else{
+							ops.push( token.get() );
 						}
 					} else if ( token.get() == '!' ) { //if there is a factorial put it in now
 						postfix.append( token.get() ).append( " " );
@@ -65,12 +95,12 @@ public class FinalMain {
 					//remove the opening paren
 					ops.pop();
 				} else {
-					if( token.get() == '-' ){
-						if( token.behind() == 0 ) {//it is the first char so its negative
+					if ( token.get() == '-' ) {
+						if ( token.behind() == 0 ) {//it is the first char so its negative
 							postfix.append( token.get() );
 							token.next();
 							continue;
-						} else if ( isOperator( token.behind() ) ) {
+						} else if ( isOperator( token.behind(), false ) ) {
 							postfix.append( token.get() );
 							token.next();
 							continue;
@@ -106,11 +136,76 @@ public class FinalMain {
 		}
 
 		//pop whatever is left in the stack off be atleast 1
-		while( ops.size() > 0 ){
-			postfix.append( ops.pop() );
+		while ( ops.size() > 0 ) {
+			postfix.append( ops.pop() ).append( " " );
 		}
 
-		IO.println( postfix.toString() );
+		return ( postfix.toString() );
+	}
+
+	public static String evaluatePostFix( String expr ) {
+		String[] equation = expr.split( " " );
+		Stack<String> stack = new Stack<>();
+		double result;
+
+		for ( int i = 0; i < equation.length; i++ ) {
+			if ( !isNumber( equation[i] ) && isOperator( equation[i].charAt( 0 ), false ) ) {
+				String op2 = stack.pop();
+				String op1 = stack.pop();
+				String re = solveEquation( op1 + " " + equation[i] + " " + op2 ); //DONE fix this
+				stack.push( re );
+			} else {
+				if ( equation[i].contains( "!" ) ) {
+					String num = equation[i].replaceFirst( "!", "" );
+					String re = Long.toString( ApiMath.factorial( Long.parseLong( num ) ) );
+					stack.push( re );
+				} else {
+					stack.push( equation[i] );
+				}
+			}
+		}
+		return removeFPart( stack.pop() );
+	}
+
+	private static boolean isNumber( String str ) {
+		try {
+			double d = Double.parseDouble( str );
+		} catch ( NumberFormatException nfe ) {
+			return false;
+		}
+		return true;
+	}
+
+	private static String removeFPart( String test ) {
+		double num = Double.parseDouble( test );
+		long iPart = (long) num;
+		if( ( num - iPart ) == 0.0 ){
+			long l = (long) num;
+			return Long.toString( l );
+		}
+		return test;
+	}
+
+	private static String solveEquation( String eq ) {
+		String[] equation = eq.split( " " );
+
+		double op1 = Double.parseDouble( equation[0] );
+		double op2 = Double.parseDouble( equation[2] );
+		String op = equation[1];
+
+		Double result = 0d;
+		if ( op.equals( "+" ) ) {
+			result = op1 + op2;
+		} else if ( op.equals( "-" ) ) {
+			result = op1 - op2;
+		} else if ( op.equals( "*" ) ) {
+			result = op1 * op2;
+		} else if ( op.equals( "/" ) ) {
+			result = op1 / op2;
+		} else if ( op.equals( "-" ) ) {
+			result = Math.pow( op1, op2 );
+		}
+		return Double.toString( result );
 	}
 
 	private static int pemdas( char op ) {
@@ -129,24 +224,22 @@ public class FinalMain {
 		return -1; //should never happen but ya should check for it
 	}
 
-	public static boolean isSolvable( String equation ) {
+	public static boolean isSolvable( String infix ) {
 		//remove all the spaces
-		equation = equation.replaceAll( " ", "" );
+		infix = infix.replaceAll( " ", "" );
 		boolean error = false;
 
-		Tokenizer token = new Tokenizer( equation ); //create token
-		CharPattern ops = new CharPattern( "[\\+\\-\\*\\/\\^\\!\\(\\)]" );
-		CharPattern opsOnly = new CharPattern( "[\\+\\-\\*\\/\\^\\!]" );
+		Tokenizer token = new Tokenizer( infix ); //create token
 		int parenthesise = 0;
-		for ( int i = 0; i < equation.length(); i++ ) {
-			if ( ops.matches( token.get() ) ) {
+		for ( int i = 0; i < infix.length(); i++ ) {
+			if ( isOperator( token.get() ) ) {
 				if ( token.get() == '(' ) {
 					parenthesise++;
 				} else if ( token.get() == ')' ) {
 					parenthesise--;
 				} else {
 					if ( token.get() == '-' ) {
-						if ( ops.matches( token.behind() ) && ops.matches( token.forward() ) ) { //is looks like this +-* something is wrong
+						if ( isOperator( token.behind(), false ) && isOperator( token.forward(), false ) ) { //is looks like this +-* something is wrong
 							error = true;
 						}
 					} else {
@@ -154,7 +247,7 @@ public class FinalMain {
 							error = true;
 						}
 
-						if ( opsOnly.matches( token.forward() ) && token.forward() != '-' && token.get() != '!' ) {
+						if ( isOperator( token.forward(), false ) && token.forward() != '-' && token.get() != '!' ) {
 							error = true;
 						}
 
