@@ -11,12 +11,12 @@ import java.util.Scanner;
  */
 public class FinalMain {
 	public static void main( String[] args ) {
-		Scanner in = new Scanner( System.in );
-		IO.println( "Enter an equation: " );
-		String eq = in.nextLine();
-		String post = convertToPostFix( eq );
-		IO.println( post );
-		IO.println( evaluatePostFix( post ) );
+//		Scanner in = new Scanner( System.in );
+//		IO.println( "Enter an equation: " );
+//		String eq = in.nextLine();
+//		String post = convertToPostFix( eq );
+//		IO.println( post );
+//		IO.println( evaluatePostFix( post ) );
 
 //		IO.println( EquationSolver.solveEquation( "3 * (4 + 5)" ) );
 //		IO.println( convertToPostFix( "3 * ( 4 + 5 )") );
@@ -31,8 +31,15 @@ public class FinalMain {
 //		IO.println( convertToPostFix( "(2!+8)" ) );
 //		IO.println( convertToPostFix( "2^4 + 2" ) );
 //		IO.println( convertToPostFix( "5.4 + 5.5" ) );
-//		IO.println( convertToPostFix( "20+3*(5-1)" ) );
+//		IO.println( convertToPostFix( "((3+5)*6) * ( (4+8)*-2)" ) );
+//		IO.println( convertToPostFix( "(3+5)*6 ((4+8)*-2)" ) );
+//		IO.println( convertToPostFix( "3 * ( 4 + 5 )" ) );
+//		IO.println( convertToPostFix( "2 * ( ( 3 + 5 ) * ( 3 + 2 ) )" ) );
+//		IO.println( convertToPostFix( "6 * (3+(7*8)*(5+2))" ) );
+//		IO.println( convertToPostFix( "-2*(3+5)" ) ) ;
+//		IO.println( convertToPostFix( "2!+2" ) ) ;
 
+//		IO.println( evaluatePostFix( convertToPostFix( "((3+5)*6) * ( (4+8)*-2)" ) ) );
 //		IO.println( evaluatePostFix( convertToPostFix( "3 * ( 4 + 5 )") ) );
 //		IO.println( evaluatePostFix( convertToPostFix( "2 * ( ( 3 + 5 ) * ( 3 + 2 ) )") ) );
 //		IO.println( evaluatePostFix( convertToPostFix( "6 * (3+(7*8)*(5+2))") ) );
@@ -202,7 +209,7 @@ public class FinalMain {
 			result = op1 * op2;
 		} else if ( op.equals( "/" ) ) {
 			result = op1 / op2;
-		} else if ( op.equals( "-" ) ) {
+		} else if ( op.equals( "^" ) ) {
 			result = Math.pow( op1, op2 );
 		}
 		return Double.toString( result );
