@@ -36,6 +36,7 @@ public class FinalMain {
 //		IO.println( convertToPostFix( "3 * ( 4 + 5 )" ) );
 //		IO.println( convertToPostFix( "2 * ( ( 3 + 5 ) * ( 3 + 2 ) )" ) );
 //		IO.println( convertToPostFix( "6 * (3+(7*8)*(5+2))" ) );
+//		IO.println( convertToPostFix( "(5*4)2" ) );
 //		IO.println( convertToPostFix( "-2*(3+5)" ) ) ;
 //		IO.println( convertToPostFix( "2!+2" ) ) ;
 
@@ -241,8 +242,14 @@ public class FinalMain {
 		for ( int i = 0; i < infix.length(); i++ ) {
 			if ( isOperator( token.get() ) ) {
 				if ( token.get() == '(' ) {
+					if( token.behind() != 0 && !isOperator( token.behind() ) ){
+						error = true;
+					}
 					parenthesise++;
 				} else if ( token.get() == ')' ) {
+					if( token.forward() != 0 && !isOperator( token.forward() ) ) {
+						error = true;
+					}
 					parenthesise--;
 				} else {
 					if ( token.get() == '-' ) {
